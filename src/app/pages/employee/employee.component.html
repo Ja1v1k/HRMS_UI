@@ -1,0 +1,261 @@
+<!-- <app-home></app-home> -->
+
+<div class="div m-3 p-5">
+    <!-- <div class="row"> -->
+        <mat-card class="mb-6">
+            <div>
+                <mat-card-header style="height: 100px;">
+                    <button class="buttonleave" (click)="openpopup(viewLeaveForm)" mat-raised-button color="primary" matTooltip="Click to Open Form">Add Employee
+                        (+)</button>
+                </mat-card-header>
+            </div>
+        
+        
+        </mat-card>
+        
+
+
+
+        <mat-form-field class="searchbox mt-5">
+  
+            <input matInput (keyup)="applyFilter($event)" placeholder="Search record" />
+            
+          </mat-form-field>
+          <mat-label style="font-family: 'Poppins', sans-serif;" class="input">Search Box</mat-label>
+          <div class="mat-elevation-z8">
+            <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 demo-table">
+              <!-- Position Column -->
+              <ng-container matColumnDef="id">
+                <th mat-header-cell *matHeaderCellDef>No.</th>
+                <td mat-cell *matCellDef="let element">{{element.id}}</td>
+              </ng-container>
+          
+              <!-- Name Column -->
+              <ng-container matColumnDef="startDate">
+                <th mat-header-cell *matHeaderCellDef>Start Date</th>
+                <td mat-cell *matCellDef="let element">{{element.startDate}}</td>
+              </ng-container>
+          
+              <!-- Weight Column -->
+              <ng-container matColumnDef="endDate">
+                <th mat-header-cell *matHeaderCellDef>End Date</th>
+                <td mat-cell *matCellDef="let element">{{element.endDate}}</td>
+              </ng-container>
+          
+              <!-- Symbol Column -->
+              <ng-container matColumnDef="Reason">
+                <th mat-header-cell *matHeaderCellDef>Reason</th>
+                <td mat-cell *matCellDef="let element">{{element.Reason}}</td>
+              </ng-container>
+          
+              <!-- <ng-container matColumnDef="Action">
+                <th mat-header-cell *matHeaderCellDef>Action</th>
+                <td mat-cell *matCellDef="let element">Edit</td>
+                <td mat-cell *matCellDef="let element">Delete</td>
+              </ng-container> -->
+              <ng-container matColumnDef="Action">
+                <th mat-header-cell *matHeaderCellDef>Action</th>
+                <td mat-cell *matCellDef="let element">
+                  <button mat-icon-button matTooltip="Click to Edit" class="iconbutton" color="primary">
+                      <mat-icon aria-label="Edit">edit</mat-icon>
+                    </button>
+                  <button mat-icon-button matTooltip="Click to Delete" class="iconbutton" color="warn"  (click)="onDelete(element.id)">
+                      <mat-icon aria-label="Delete">delete</mat-icon>
+                    </button>
+                  </td>
+              </ng-container>
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row;columns:displayedColumns"></tr>
+            </table>
+          
+            <mat-paginator [pageSizeOptions]="[5,10,20]" showFirstLastButtons></mat-paginator>        
+        <!-- <div class="col-8">
+            <div class="card">
+                <div class="card-header bg-primary">
+                    <div class="row">
+                        <div class="col-6 text-white">
+                            Employee Portal
+
+                        </div>
+                        <div class="col-6 text-right">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr class="text-center">
+                                <th>Sr No</th>
+                                <th>Profile Image</th>
+                                <th>Name</th>
+                                <th>Contact No</th>
+                                <th>Email</th>
+                                <th>City</th>
+                                <th>Salary</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="text-center" *ngFor="let item of employeeArray ; let sr= index">
+                                <td>{{sr+1}}</td>
+                                <div class="image1">
+                                    <td class="text-center"><img [src]="item.file" alt=""></td>
+
+                                </div>
+                                <td>{{item.empname}}</td>
+                                <td>{{item.empcontact}}</td>
+                                <td>{{item.empEmail}}</td>
+                                <td>{{item.city}}</td>
+                                <td>{{item.salary}}</td>
+                                <td class="d-flex justify-content-evenly">
+                                    <button class="btn btn-success btn-sm" (click)="onEdit(item.id)">Edit</button>
+                                    <button class="btn btn-danger btn-sm" (click)="onDelete(item.id)">Delete</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+
+        </div> -->
+
+        <ng-template #viewLeaveForm>
+            <mat-dialog-actions class="closepopup">
+              <button (click)="closepopup()" mat-button color="primary" matDialogClose matTooltip="Close form
+               "> <mat-icon>close</mat-icon></button>
+            </mat-dialog-actions>
+        
+            <div class="container-fluid d-flex justify-content-center mt-5">
+                <div class="card-header bg-primary">
+                    <div class="row">
+                        <div class="col-6 text-white">
+                            New Employee
+
+                        </div>
+                        <div class="col-6 text-right">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body" style="background-color: rgb(242, 248, 248);">
+                    <form [formGroup]="empForm" (ngSubmit)=" submitForm()">
+                        <div class="row">
+                            <div class="col-6">
+                                <label for="">Name</label>
+                                <input type="text" class="form-control" name="empname" formControlName="empname"  [ngClass]="{ 'is-invalid': f['empname'].touched && f['empname'].errors, 'is-valid': f['empname'].valid }"
+                                required>
+                                 <small class="text-danger" *ngIf="f['empname'].touched && f['empname'].errors">Employee Name is
+                                    required</small>
+                            </div>
+                            <div class="col-6">
+                                <label for="">Email</label>
+                                <input type="text" class="form-control" name="empEmail" formControlName="empEmail" [ngClass]="{ 'is-invalid': f['empEmail'].touched && f['empEmail'].errors, 'is-valid': f['empEmail'].valid }"
+                                required>
+                                <small class="text-danger" *ngIf="f['empEmail'].touched && f['empEmail'].pristine">Email is
+                                    required</small>
+                                    <small class="text-danger" *ngIf="f['empEmail'].dirty &&  f['empEmail'].touched && f['empEmail'].errors">Email is invalid</small>
+                            </div>
+                            <div class="col-6">
+                                <label for="">Contact</label>
+                                <input type="text" class="form-control" name="empcontact" formControlName="empcontact"  [ngClass]="{ 'is-invalid': f['empcontact'].touched && f['empcontact'].errors, 'is-valid': f['empcontact'].valid }"
+                                required>
+                                <small class="text-danger" *ngIf="f['empcontact'].touched && f['empcontact'].errors ">Contact is
+                                    required</small>
+                            </div>
+                            <div class="col-6">
+                                <label for="">Alte Contact</label>
+                                <input type="text" class="form-control" name="altContact" formControlName="altContact"  [ngClass]="{ 'is-invalid': f['altContact'].touched && f['altContact'].errors, 'is-valid': f['altContact'].valid }"
+                                required>
+                                <small class="text-danger" *ngIf="f['altContact'].touched && f['altContact'].errors ">Contact is
+                                    required</small>
+                            </div>
+                            <div class="col-6">
+                                <label for="">Pincode</label>
+                                <input type="text" class="form-control" name="pincode" formControlName="pincode"  [ngClass]="{ 'is-invalid': f['pincode'].touched && f['pincode'].errors, 'is-valid': f['pincode'].valid }"
+                                required>
+                                <small class="text-danger" *ngIf="f['pincode'].touched && f['pincode'].errors">Pin Code is required</small>
+                            </div>
+                            <div class="col-6">
+                                <label for="">Address Line1</label>
+                                <textarea name="addressLine1" class="form-control" cols="2"
+                                    formControlName="addressLine1"  [ngClass]="{ 'is-invalid': f['addressLine1'].touched && f['addressLine1'].errors, 'is-valid': f['addressLine1'].valid }"
+                                    required></textarea>
+                                    <small class="text-danger" *ngIf="f['addressLine1'].touched && f['addressLine1'].errors">Address is required</small>
+                            </div>
+                            <div class="col-6">
+                                <label for="">Address Line2</label>
+                                <textarea name="addressLine2" class="form-control" cols="2"
+                                    formControlName="addressLine2" required></textarea>
+                                    <!-- <small class="text-danger" *ngIf="f['addressLine2'].touched && f['addressLine2'].errors && !f['addressLine2'].dirty">Employee Name is required</small> -->
+                            </div>
+                            <div class="col-6">
+                                <label for="">City</label>
+                                <input type="text" class="form-control" name="city" formControlName="city"  [ngClass]="{ 'is-invalid': f['city'].touched && f['city'].errors, 'is-valid': f['city'].valid }"
+                                required>
+                                <small class="text-danger" *ngIf="f['city'].touched && f['city'].errors">City is required</small>
+                            </div>
+                            <div class="col-6">
+                                <label for="">Bank Name</label>
+                                <input type="text" class="form-control" name="bankname" formControlName="bankname"  [ngClass]="{ 'is-invalid': f['bankname'].touched && f['bankname'].errors, 'is-valid': f['bankname'].valid }"
+                                required>
+                                <small class="text-danger" *ngIf="f['bankname'].touched && f['bankname'].errors">Bank Name is required</small>
+                            </div>
+
+                            <div class="col-6">
+                                <label for="">IFSC</label>
+                                <input type="text" class="form-control" name="ifsc" formControlName="ifsc"  [ngClass]="{ 'is-invalid': f['ifsc'].touched && f['ifsc'].errors, 'is-valid': f['ifsc'].valid }"
+                                required>
+                                <small class="text-danger" *ngIf="f['ifsc'].touched && f['ifsc'].errors">IFSC is required</small>
+                            </div>
+                            <div class="col-6">
+                                <label for="">Account No</label>
+                                <input type="text" class="form-control" name="accountNo" formControlName="accountNo"  [ngClass]="{ 'is-invalid': f['accountNo'].touched && f['accountNo'].errors, 'is-valid': f['accountNo'].valid }"
+                                required>
+                                <small class="text-danger" *ngIf="f['accountNo'].touched && f['accountNo'].errors">Account No is required</small>
+                            </div>
+                            <div class="col-6">
+                                <label for="">Bank Branch</label>
+                                <input type="text" class="form-control" name="bankBranch" formControlName="bankBranch"  [ngClass]="{ 'is-invalid': f['bankBranch'].touched && f['bankBranch'].errors, 'is-valid': f['bankBranch'].valid }"
+                                required>
+                                <small class="text-danger" *ngIf="f['bankBranch'].touched && f['bankBranch'].errors">Bank Branch is required</small>
+                            </div>
+                            <div class="col-6">
+                                <label for="">State</label>
+                                <input type="text" class="form-control" name="state" formControlName="state"  [ngClass]="{ 'is-invalid': f['state'].touched && f['state'].errors, 'is-valid': f['state'].valid }"
+                                required>
+                                <small class="text-danger" *ngIf="f['state'].touched && f['state'].errors">State is required</small>
+                            </div>
+                            <div class="col-6">
+                                <label for="">Salary</label>
+                                <input type="text" class="form-control" name="salary" formControlName="salary"  [ngClass]="{ 'is-invalid': f['salary'].touched && f['salary'].errors, 'is-valid': f['salary'].valid }"
+                                required>
+                                <small class="text-danger" *ngIf="f['salary'].touched && f['salary'].errors">Salary is required</small>
+                            </div>
+                            <div class="image-upload pt-3">
+                                <!-- <img [src]="imageSrc"  /> -->
+                                <input name="file" type="file" accept="image/*" (change)="handleInputChange($event)"  [ngClass]="{ 'is-invalid': f['file'].touched && f['file'].errors, 'is-valid': f['file'].valid }"
+                                required />
+                                <small class="text-danger" *ngIf="f['file'].touched && f['file'].errors"> Please Upload Your Profile Pic </small>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6 text-center mt-3 mb-2">
+                                <button class="btn btn-secondary btn-sm" type="reset"
+                                    (click)="onReset() ">Reset</button>
+                            </div>
+                            <div class="col-6 text-center  mt-3 mb-2">
+                                <button class="button not-allowed btn-sm" style="border-radius: 8px;" *ngIf="!empForm.value.id" [disabled]="(this.disable || !this.empForm.valid )" type="submit"
+                                    (click)="onSave()">Save Employee</button>
+                                <button class="btn btn-warning btn-sm" *ngIf="empForm.value.id" type="submit"
+                                    (click)="onUpdate(empForm.value.id)">Update Employee</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+
+
+</ng-template>
