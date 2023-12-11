@@ -1,0 +1,60 @@
+<!-- <mat-toolbar color="primary" class="example-toolbar">
+	
+	<h1 class="example-app-name">Nested Menus</h1>
+</mat-toolbar> -->
+
+<!-- <app-layout (menuState)='burgerClicked($event)'></app-layout>   -->
+<mat-sidenav-container class="example-container" autosize>
+    <mat-sidenav #sidenav class="example-sidenav" mode="side" opened  *ngIf="isExpanded">
+        <mat-nav-list>
+
+            <mat-list-item class="parent">
+                <mat-icon mat-list-icon>home</mat-icon>
+                <span class="full-width" *ngIf="subMenuState || isShowing" [routerLink]="['/home']"><a>Home</a>
+                </span>
+            </mat-list-item>
+
+            <mat-list-item class="parent">
+                <mat-icon mat-list-icon>dashboard</mat-icon>
+                <span class="full-width" *ngIf="subMenuState || isShowing" routerLink="/dashboard"><a>Dashboard</a>
+                </span>
+            </mat-list-item>
+
+            <mat-list-item class="parent">
+                <mat-icon mat-list-icon>people</mat-icon>
+                <span class="full-width" *ngIf="subMenuState || isShowing" routerLink="/employee"><a>Employee</a>
+                </span>
+            </mat-list-item>
+
+            <mat-list-item class="parent">
+                <mat-icon mat-list-icon>pan_tool</mat-icon>
+                <span class="full-width" *ngIf="subMenuState || isShowing" routerLink="/attendance"><a>Attendance</a>
+                </span>
+            </mat-list-item>
+
+            <mat-list-item class="parent">
+                <mat-icon mat-list-icon>attach_money</mat-icon>
+                <span class="full-width" *ngIf="subMenuState || isShowing" routerLink="/salary"><a>Salary</a>
+                </span>
+            </mat-list-item>
+
+            <mat-list-item class="parent">
+                <mat-icon mat-list-icon>contact_phone</mat-icon>
+                <span class="full-width" *ngIf="subMenuState || isShowing"><a>Contact</a>
+                </span>
+            </mat-list-item>
+
+            <mat-list-item class="parent">
+                <mat-icon mat-list-icon class="mb-1">work_off</mat-icon>
+                <span class="full-width" *ngIf="subMenuState || isShowing" routerLink="/leave1"><a>Leave</a>
+                </span>
+            </mat-list-item>
+
+
+        </mat-nav-list>
+
+    </mat-sidenav>
+
+    <router-outlet></router-outlet>
+
+</mat-sidenav-container>

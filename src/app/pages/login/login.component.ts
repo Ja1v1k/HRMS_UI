@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { EmployeeService } from 'src/app/service/employee.service';
 import { signup } from '../../data-type';
@@ -15,7 +15,7 @@ export class LoginComponent {
   showLogin = false;
   authError:string = '';
   menuType:string ='seller'
-
+  isLoginError = new EventEmitter<boolean>(false)
 constructor(private router:Router,
   private empSrv:EmployeeService , private auth:AuthService){
 
@@ -35,9 +35,8 @@ login(data:any){
   // console.log(data)
   this.empSrv.userLogin(data);
   this.auth.login(data).subscribe((res:any) => {
-    localStorage.setItem('seller', JSON.stringify(res.body))
-      this.router.navigate(['dashboard'])
-    
+    this.auth.setToken(res.token)
+    this.router.navigate(['dashboard'])
   }
     
     
