@@ -5,6 +5,7 @@ import { EmployeeService } from 'src/app/service/employee.service';
 import { signup } from '../../data-type';
 import Swal from 'sweetalert2';
 import { AuthService } from 'src/app/service/auth.service';
+import { UserStoreService } from 'src/app/service/user-store.service';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +18,7 @@ export class LoginComponent {
   menuType:string ='seller'
   isLoginError = new EventEmitter<boolean>(false)
 constructor(private router:Router,
-  private empSrv:EmployeeService , private auth:AuthService){
+  private empSrv:EmployeeService , private auth:AuthService,private userStore:UserStoreService){
 
 }
 ngOnInit(): void {
@@ -37,6 +38,11 @@ login(data:any){
   this.auth.login(data).subscribe((res:any) => {
     this.auth.setToken(res.token)
     this.router.navigate(['dashboard'])
+          this.auth.storeRefreshToken(res.refreshToken);
+          const tokenPayload = this.auth.decodedToken();
+          this.userStore.setFullNameForStore(tokenPayload.name);
+          this.userStore.setRoleForStore(tokenPayload.role);          
+          this.router.navigate(['dashboard'])
   }
     
     

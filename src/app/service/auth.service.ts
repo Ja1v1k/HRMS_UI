@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { TokenApiModel } from '../models/TokenApiModel';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Injectable({
   providedIn: 'root'
@@ -28,11 +30,47 @@ export class AuthService {
   }
 
   getToken(){
-    localStorage.getItem("token")
+    return localStorage.getItem("token");
   }
 
   isLoggedIn():boolean{
     return !!localStorage.getItem("token")
+  }
+
+  storeToken(tokenValue: string){
+    localStorage.setItem('token', tokenValue)
+  }
+
+  storeRefreshToken(tokenValue: string){
+    localStorage.setItem('refreshToken', tokenValue)
+  }
+
+  getRefreshToken(){
+    return localStorage.getItem('refreshToken')
+  }
+
+  decodedToken(){
+    const jwtHelper = new JwtHelperService();
+    const token:string = this.getToken();
+    return jwtHelper.decodeToken(token)
+  }
+
+  getfullNameFromToken(){
+    if(this.decodedToken())
+    return this.decodedToken().name;
+  }
+
+  getRoleFromToken(){
+    if(this.decodedToken())
+    return this.decodedToken().role;
+  }
+
+  renewToken(tokenApi : TokenApiModel){
+    return this.http.post<any>(`${this.baseUrl}refresh`, tokenApi)
+  }
+
+  getUsers() {
+    return this.http.get<any>(this.baseUrl);
   }
 
 }

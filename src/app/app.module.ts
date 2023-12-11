@@ -10,7 +10,7 @@ import { EmployeeComponent } from './pages/employee/employee.component';
 import { AttendanceComponent } from './pages/attendance/attendance.component';
 import { LeaveComponent } from './pages/leave/leave.component';
 import { SalaryComponent } from './pages/salary/salary.component';
-import {HttpClientModule} from'@angular/common/http'
+import {HTTP_INTERCEPTORS, HttpClientModule} from'@angular/common/http'
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { HomeComponent } from './home/home.component';
 import { SignupComponent } from './pages/signup/signup.component';
@@ -20,6 +20,7 @@ import { Leave1Component } from './pages/leave1/leave1.component';
 import { MaterialModule } from './material.modules';
 import { SidebarComponent } from './layout/sidebar/sidebar.component';
 import { FooterComponent } from './layout/footer/footer.component';
+import { TokenInterceptor } from './Interceptor/token.interceptor';
 
 @NgModule({
     declarations: [
@@ -38,7 +39,11 @@ import { FooterComponent } from './layout/footer/footer.component';
         HeaderComponent,
         
     ],
-    providers: [DatePipe],
+    providers: [DatePipe,{
+        provide:HTTP_INTERCEPTORS,
+        useClass:TokenInterceptor,
+        multi:true
+      }],
     bootstrap: [AppComponent],
     imports: [
         BrowserModule,
