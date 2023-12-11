@@ -1,0 +1,46 @@
+<mat-toolbar color="primary" class="row align-items-center">
+  <div class="col-1">
+    <img src="../../../assets/gear.png" alt="" width="32px" class="img-fluid">
+  </div>
+
+  <div class="col-2 d-flex align-items-center">
+
+    <button mat-icon-button (click)="toggleMenu()">
+      <mat-icon *ngIf="showFirst">menu</mat-icon>
+      <mat-icon *ngIf="!showFirst">close</mat-icon>
+    </button>
+    <span>HRMS SYSTEM</span>
+  </div>
+
+  <div class="col-1 offset-7">
+    <!-- <ng-container *ngIf="menuType == 'default'">
+      <a type="button" routerLink="login" routerLinkActive="active"
+        class="cursor-pointer text-blueviolet btn btn-outline-light m-2">Sign In</a>
+      <a type="button" routerLink="signup" routerLinkActive="active"
+        class="cursor-pointer text-blueviolet btn btn-outline-light ">Sign Up</a>
+    </ng-container>
+    <ng-container *ngIf="menuType != 'default'">
+      <div class="btnsign">
+        <a type="button" (click)="onSignOut()" class="cursor-pointer mt-2 " mat-raised-button color="warn"
+          data-bs-toggle="tooltip" data-bs-placement="top" title="Log Out">Sign Out</a>
+      </div>
+  
+    </ng-container> -->
+
+
+  </div>
+  <div class="col-1">
+    <img src="../../../assets/user.png" mat-button [matMenuTriggerFor]="menu" alt="" width="32px" class="img-fluid">
+  </div>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item><img src="../../../assets/user.png" alt="" width="32px" class="img-fluid"> Profile</button>
+    <button mat-menu-item><img src="../../../assets/notification-bell.png" alt="" width="32px" class="img-fluid">
+      Notifications</button>
+    <button mat-menu-item><img src="../../../assets/settings.png" alt="" width="32px" class="img-fluid">
+      Settings</button>
+    <button mat-menu-item (click)="onSignOut()"><img src="../../../assets/logout.png" alt="" width="32px"
+        class="img-fluid"> Logout</button>
+  </mat-menu>
+
+
+</mat-toolbar>

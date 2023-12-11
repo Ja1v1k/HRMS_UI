@@ -1,15 +1,13 @@
-import { Component, EventEmitter, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
-import {Router} from '@angular/router';
-import { Output } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-layout',
-  templateUrl: './layout.component.html',
-  styleUrls: ['./layout.component.css']
- 
+  selector: 'app-header',
+  templateUrl: './header.component.html',
+  styleUrls: ['./header.component.css']
 })
-export class LayoutComponent  {
+export class HeaderComponent {
   @Output() newItemEvent = new EventEmitter<boolean>();
   @Output() menuState = new EventEmitter(); //new
   @Input() flag: boolean;

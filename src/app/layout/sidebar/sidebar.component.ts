@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
 import { Router } from '@angular/router';
 
@@ -7,14 +7,14 @@ import { Router } from '@angular/router';
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.css']
 })
-export class SidebarComponent implements  OnChanges {
+export class SidebarComponent {
   @Output() newItemEvent = new EventEmitter<boolean>();
   @Input() flag: boolean;
   @Input() subMenuState; //new
   @ViewChild('sidenav') sidenav: MatSidenav;
   isExpanded = true;
   showSubmenu: boolean = false;
-  isShowing = false;
+  isShowing = true;
   showSubSubMenu: boolean = false;
 
   sideBarFlag: boolean = false
