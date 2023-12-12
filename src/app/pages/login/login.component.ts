@@ -6,6 +6,10 @@ import { signup } from '../../data-type';
 import Swal from 'sweetalert2';
 import { AuthService } from 'src/app/service/auth.service';
 import { UserStoreService } from 'src/app/service/user-store.service';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { ResetPassword } from 'src/app/models/ResetPassword.model';
+import { ResetPasswordService } from 'src/app/service/reset-password.service';
+const defaultDialogConfig = new MatDialogConfig();
 
 @Component({
   selector: 'app-login',
@@ -17,8 +21,27 @@ export class LoginComponent {
   authError:string = '';
   menuType:string ='seller'
   isLoginError = new EventEmitter<boolean>(false)
+  email:string;
+  config = {
+    disableClose: true,
+    panelClass: 'custom-overlay-pane-class',
+    hasBackdrop: true,
+    backdropClass: '',
+    width: '',
+    height: '60%',
+    minWidth: '',
+    minHeight: '',
+    maxWidth: defaultDialogConfig.maxWidth,
+    maxHeight: '',
+    position: {
+      top: '',
+      bottom: '',
+      left: '',
+      right: ''
+    },}
+
 constructor(private router:Router,
-  private empSrv:EmployeeService , private auth:AuthService,private userStore:UserStoreService){
+  private empSrv:EmployeeService , private auth:AuthService,private userStore:UserStoreService,private dialog: MatDialog,private resetPassword:ResetPasswordService){
 
 }
 ngOnInit(): void {
@@ -59,6 +82,21 @@ openRegister(){
   this.showLogin=false
   this.router.navigate(['signup'])
 
+}
+
+openpopup(templateRef) {
+  let dialogRef = this.dialog.open(templateRef, this.config);
+  dialogRef.disableClose = true;
+
+  dialogRef.backdropClick().subscribe(_ => {
+    dialogRef.close();
+
+  })
+}
+
+sendEmail(){
+  debugger
+  this.resetPassword.sendResetPasswordLink(this.email).subscribe(res=>console.log(res))
 }
 
 }

@@ -62,7 +62,6 @@ export class HeaderComponent {
    
      
     this.route.navigate(['login'])
-    this.isLoginError.emit(false) 
 
   }
   addNewItem(value: boolean) {

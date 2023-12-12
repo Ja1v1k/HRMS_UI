@@ -36,7 +36,7 @@ import { TokenInterceptor } from './Interceptor/token.interceptor';
         Leave1Component,
         SidebarComponent,
         FooterComponent,
-        HeaderComponent,
+        HeaderComponent
         
     ],
     providers: [DatePipe,{

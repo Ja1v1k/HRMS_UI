@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { TokenApiModel } from '../models/TokenApiModel';
+import { TokenApiModel } from '../models/TokenApi.Model';
 import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Injectable({
@@ -9,15 +9,15 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 })
 export class AuthService {
 
-  private baseUrl : string = "https://localhost:7228/api/User/"
+  private baseUrl : string = "https://localhost:7228/api/User"
   constructor(private http : HttpClient,private router:Router) { }
 
   signUp(userObj:any){
-    return this.http.post<any>(`${this.baseUrl}register`, userObj)
+    return this.http.post<any>(`${this.baseUrl}/register`, userObj)
   }
 
   login(loginObj:any){
-    return this.http.post<any>(`${this.baseUrl}login`, loginObj)
+    return this.http.post<any>(`${this.baseUrl}/login`, loginObj)
   }
 
   signOut(){
@@ -66,7 +66,7 @@ export class AuthService {
   }
 
   renewToken(tokenApi : TokenApiModel){
-    return this.http.post<any>(`${this.baseUrl}refresh`, tokenApi)
+    return this.http.post<any>(`${this.baseUrl}/refresh`, tokenApi)
   }
 
   getUsers() {

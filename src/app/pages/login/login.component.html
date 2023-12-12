@@ -35,18 +35,17 @@
 
                         <!-- 2 column grid layout for inline styling -->
                         <div class="row mb-4">
-                          <div class="col d-flex justify-content-center">
-                            <!-- Checkbox -->
-                            <!-- <div class="form-check">
+                          <!-- <div class="col d-flex justify-content-center">
+                            Checkbox
+                            <div class="form-check">
                               <input class="form-check-input" type="checkbox" value="" id="form2Example31" checked />
                               <label class="form-check-label" for="form2Example31"> Remember me </label>
-                            </div> -->
-                          </div>
-
-                          <!-- <div class="col">
-                            Simple link
-                            <a href="#!">Forgot password?</a>
+                            </div>
                           </div> -->
+
+                          <div class="col d-flex justify-content-end">
+                            <a id="forgot" (click)="openpopup(viewLeaveForm)">Forgot password?</a>
+                          </div>
                         </div>
 
                         <!-- Submit button -->
@@ -98,3 +97,30 @@
     </div>
   </div>
 </section>
+<ng-template #viewLeaveForm>
+<div class="card">
+  <div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <p class="modal-title" id="exampleModalLabel"> <span style="font-size: 25px;font-weight:700">Forget your password?</span><br>
+                <small>Please provide your E-mail we will send the reset link</small></p>
+
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+        </div>
+
+        <div class="modal-body">
+            <div class="form-group pt-3">
+                <div class="input-field"> <span class="fa fa-user p-2"></span> <input type="text" placeholder="Email" [(ngModel)]="email"> </div>
+            </div>
+            <small class="text-danger">*Email is required*</small>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" (click)="sendEmail()">Send</button>
+        </div>
+    </div>
+</div>
+</div>
+  
+</ng-template>

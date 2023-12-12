@@ -10,7 +10,7 @@ import { Observable, catchError, switchMap, throwError } from 'rxjs';
 import { AuthService } from '../service/auth.service';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { TokenApiModel } from '../models/TokenApiModel';
+import { TokenApiModel } from '../models/TokenApi.Model';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
