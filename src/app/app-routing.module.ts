@@ -10,7 +10,6 @@ import { AttendanceComponent } from './pages/attendance/attendance.component';
 import { authGuard } from './guards/auth.guard';
 import { HomeComponent } from './home/home.component';
 import { SignupComponent } from './pages/signup/signup.component';
-import { Leave1Component } from './pages/leave1/leave1.component';
 import { SidebarComponent } from './layout/sidebar/sidebar.component';
 import { FooterComponent } from './layout/footer/footer.component';
 
@@ -41,7 +40,7 @@ const routes: Routes = [
     path: 'salary', component: SalaryComponent, canActivate: [authGuard]
   },
   {
-    path: 'leave1', component: Leave1Component, canActivate: [authGuard]
+    path: 'leave', component: LeaveComponent, canActivate: [authGuard]
   },
   {
     path: 'sidebar', component: SidebarComponent, canActivate: [authGuard]

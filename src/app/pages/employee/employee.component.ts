@@ -25,8 +25,8 @@ export class EmployeeComponent implements OnInit {
     panelClass: 'custom-overlay-pane-class',
     hasBackdrop: true,
     backdropClass: '',
-    width: '',
-    height: '60%',
+    width: 'auto',
+    height: 'auto',
     minWidth: '',
     minHeight: '',
     maxWidth: defaultDialogConfig.maxWidth,
@@ -40,13 +40,13 @@ export class EmployeeComponent implements OnInit {
 
 
   }
-
+  
   // today
   displayedColumns = ['id', 'startDate', 'endDate', 'Reason', 'Action'];
   dataSource: any = new MatTableDataSource;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild('viewLeaveForm') viewLeaveForm: TemplateRef<any>;
+  @ViewChild('viewEmployeeForm') viewEmployeeForm: TemplateRef<any>;
 
   get f(){
     return this['empForm'].controls;
@@ -55,24 +55,27 @@ export class EmployeeComponent implements OnInit {
   constructor(private empSrv: EmployeeService, private dialog: MatDialog) {
   }
   ngOnInit(): void {
-    
+    debugger
     this.empForm = new FormGroup({
       empname: new FormControl('', [Validators.required]),
-      empEmail: new FormControl('', [Validators.required , Validators.email]),
-      empcontact: new FormControl('', [Validators.required]),
-      altContact: new FormControl('', [Validators.required]),
-      pincode: new FormControl('', [Validators.required]),
+      dob: new FormControl('', [Validators.required]),
+      joiningDate: new FormControl('', [Validators.required]),
+      empEmail: new FormControl('', Validators.email),
+      empcontact: new FormControl('', [Validators.pattern('[6-9]\\d{9}')]),
+      bloodgroup: new FormControl('', [Validators.pattern('(A|B|AB|O)[+-]')]),
+      // altContact: new FormControl('', [Validators.required]),
+      // pincode: new FormControl('', [Validators.required]),
       city: new FormControl('', [Validators.required]),
-      state: new FormControl('', [Validators.required]),
-      addressLine1: new FormControl('', [Validators.required]),
-      addressLine2: new FormControl(''),
-      bankname: new FormControl('', [Validators.required]),
-      ifsc: new FormControl('', [ Validators.required]),
-      accountNo: new FormControl('', [Validators.required]),
-      bankBranch: new FormControl('', [Validators.required]),
+      // state: new FormControl('', [Validators.required]),
+      address: new FormControl('', [Validators.required]),
+      // bankname: new FormControl('', [Validators.required]),
+      // ifsc: new FormControl('', [ Validators.required]),
+      // accountNo: new FormControl('', [Validators.required]),
+      // bankBranch: new FormControl('', [Validators.required]),
+      gender: new FormControl('', [Validators.required]),
       salary: new FormControl('', [Validators.required]),
-      id: new FormControl(''),
-      file: new FormControl('', [Validators.required])
+      // id: new FormControl(''),
+      // file: new FormControl('', [Validators.required])
     })
     this.loadAllEmployee();
     console.log(this.empForm)
@@ -87,7 +90,7 @@ export class EmployeeComponent implements OnInit {
     })
   }
   onSave() {
-    
+    debugger
     this.empSrv.createEmployee(this.empForm.value).subscribe((res: any) => {
       if (res) {
         this.loadAllEmployee();
@@ -99,12 +102,12 @@ export class EmployeeComponent implements OnInit {
     })
   }
   onEdit(id: number) {
-    
+    debugger
     let route_id = id
     this.empSrv.getEmpById(id).subscribe(data => {
       console.log(data)
       data.forEach((element: any) => {
-        // 
+        // debugger
         if (element.id == route_id) {
           this.empForm.patchValue({
             id: element.id,
@@ -206,7 +209,7 @@ export class EmployeeComponent implements OnInit {
   }
 
   closepopup(){
-
+    
     this.empForm.reset();
   }
 

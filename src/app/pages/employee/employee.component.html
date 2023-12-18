@@ -1,75 +1,64 @@
-<!-- <app-home></app-home> -->
+<mat-card>
+    <div>
+        <mat-card-header style="height: 100px;">
+            <button class="buttonleave" (click)="openpopup(viewEmployeeForm)" mat-raised-button color="primary"
+                matTooltip="Click to Leave">Add Employee(+)</button>
+        </mat-card-header>
+    </div>
 
-<div class="div m-3 p-5">
-    <!-- <div class="row"> -->
-        <mat-card class="mb-6">
-            <div>
-                <mat-card-header style="height: 100px;">
-                    <button class="buttonleave" (click)="openpopup(viewLeaveForm)" mat-raised-button color="primary" matTooltip="Click to Open Form">Add Employee
-                        (+)</button>
-                </mat-card-header>
-            </div>
-        
-        
-        </mat-card>
-        
+
+</mat-card>
 
 
 
-        <mat-form-field class="searchbox mt-5">
-  
-            <input matInput (keyup)="applyFilter($event)" placeholder="Search record" />
-            
-          </mat-form-field>
-          <mat-label style="font-family: 'Poppins', sans-serif;" class="input">Search Box</mat-label>
-          <div class="mat-elevation-z8">
-            <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 demo-table">
-              <!-- Position Column -->
-              <ng-container matColumnDef="id">
-                <th mat-header-cell *matHeaderCellDef>No.</th>
-                <td mat-cell *matCellDef="let element">{{element.id}}</td>
-              </ng-container>
-          
-              <!-- Name Column -->
-              <ng-container matColumnDef="startDate">
-                <th mat-header-cell *matHeaderCellDef>Start Date</th>
-                <td mat-cell *matCellDef="let element">{{element.startDate}}</td>
-              </ng-container>
-          
-              <!-- Weight Column -->
-              <ng-container matColumnDef="endDate">
-                <th mat-header-cell *matHeaderCellDef>End Date</th>
-                <td mat-cell *matCellDef="let element">{{element.endDate}}</td>
-              </ng-container>
-          
-              <!-- Symbol Column -->
-              <ng-container matColumnDef="Reason">
-                <th mat-header-cell *matHeaderCellDef>Reason</th>
-                <td mat-cell *matCellDef="let element">{{element.Reason}}</td>
-              </ng-container>
-          
-              <!-- <ng-container matColumnDef="Action">
-                <th mat-header-cell *matHeaderCellDef>Action</th>
-                <td mat-cell *matCellDef="let element">Edit</td>
-                <td mat-cell *matCellDef="let element">Delete</td>
-              </ng-container> -->
-              <ng-container matColumnDef="Action">
-                <th mat-header-cell *matHeaderCellDef>Action</th>
-                <td mat-cell *matCellDef="let element">
-                  <button mat-icon-button matTooltip="Click to Edit" class="iconbutton" color="primary">
-                      <mat-icon aria-label="Edit">edit</mat-icon>
-                    </button>
-                  <button mat-icon-button matTooltip="Click to Delete" class="iconbutton" color="warn"  (click)="onDelete(element.id)">
-                      <mat-icon aria-label="Delete">delete</mat-icon>
-                    </button>
-                  </td>
-              </ng-container>
-              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-              <tr mat-row *matRowDef="let row;columns:displayedColumns"></tr>
-            </table>
-          
-            <mat-paginator [pageSizeOptions]="[5,10,20]" showFirstLastButtons></mat-paginator>        
-        <!-- <div class="col-8">
+<mat-form-field class="searchbox mt-5">
+    <input matInput (keyup)="applyFilter($event)" placeholder="Search record" />
+</mat-form-field>
+<mat-label style="font-family: 'Poppins', sans-serif;" class="input">Search Box</mat-label>
+<div class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 demo-table">
+        <!-- Position Column -->
+        <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef>No.</th>
+            <td mat-cell *matCellDef="let element">{{element.id}}</td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="startDate">
+            <th mat-header-cell *matHeaderCellDef>Start Date</th>
+            <td mat-cell *matCellDef="let element">{{element.startDate}}</td>
+        </ng-container>
+
+        <!-- Weight Column -->
+        <ng-container matColumnDef="endDate">
+            <th mat-header-cell *matHeaderCellDef>End Date</th>
+            <td mat-cell *matCellDef="let element">{{element.endDate}}</td>
+        </ng-container>
+
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="Reason">
+            <th mat-header-cell *matHeaderCellDef>Reason</th>
+            <td mat-cell *matCellDef="let element">{{element.Reason}}</td>
+        </ng-container>
+        <ng-container matColumnDef="Action">
+            <th mat-header-cell *matHeaderCellDef>Action</th>
+            <td mat-cell *matCellDef="let element">
+                <button mat-icon-button matTooltip="Click to Edit" class="iconbutton" color="primary">
+                    <mat-icon aria-label="Edit">edit</mat-icon>
+                </button>
+                <button mat-icon-button matTooltip="Click to Delete" class="iconbutton" color="warn"
+                    (click)="onDelete(element.id)">
+                    <mat-icon aria-label="Delete">delete</mat-icon>
+                </button>
+            </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row;columns:displayedColumns"></tr>
+    </table>
+
+    <mat-paginator [pageSizeOptions]="[5,10,20]" showFirstLastButtons></mat-paginator>
+</div>
+<!-- <div class="col-8">
             <div class="card">
                 <div class="card-header bg-primary">
                     <div class="row">
@@ -121,141 +110,137 @@
 
         </div> -->
 
-        <ng-template #viewLeaveForm>
+<ng-template #viewEmployeeForm>
+        <mat-card> 
             <mat-dialog-actions class="closepopup">
-              <button (click)="closepopup()" mat-button color="primary" matDialogClose matTooltip="Close form
-               "> <mat-icon>close</mat-icon></button>
+                <button (click)="closepopup()" mat-button color="primary" matDialogClose matTooltip="Close form">
+                    <mat-icon  class="mat-icon-size">close</mat-icon>
+                </button>
             </mat-dialog-actions>
-        
-            <div class="container-fluid d-flex justify-content-center mt-5">
-                <div class="card-header bg-primary">
-                    <div class="row">
-                        <div class="col-6 text-white">
-                            New Employee
+            <div class="mt-5">
+                <div>
+                    <h1 style="font-weight: 500;"> Employee Form</h1>
+                </div>
 
+                <form [formGroup]="empForm"  (ngSubmit)="onSave()">
+                    <mat-dialog-content class="content">
+                        <div class="row">
+                            <mat-form-field appearance="outline">
+                                <mat-label>First name:</mat-label>
+                                <input matInput type="text" placeholder="i.e David" formControlName="empname">
+                                <mat-error>Reqired Name</mat-error>
+                            </mat-form-field>
+                            <!-- <mat-form-field appearance="outline">
+                                <mat-label>Last Name:</mat-label>
+                                <input matInput placeholder="i.e Smith" formControlName="lastname">
+                            </mat-form-field> -->
+                            <mat-form-field appearance="outline">
+                                <mat-label>Date of birth:</mat-label>
+                                <input matInput [matDatepicker]="picker" placeholder="Enter your birth Date" formControlName="dob" required> 
+                                <mat-hint>MM/DD/YYYY</mat-hint>
+                                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                                <mat-datepicker #picker></mat-datepicker>
+                                <mat-error>Birth Date is Required</mat-error>
+                            </mat-form-field>
                         </div>
-                        <div class="col-6 text-right">
-
+                        <div class="row">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Email:</mat-label>
+                                <input matInput type="email" placeholder="i.e david@gmail.com"
+                                    formControlName="empEmail">
+                                    <mat-error>invalid email address</mat-error>
+                            </mat-form-field>
+                            <mat-form-field appearance="outline">
+                                <mat-label>Blood Group:</mat-label>
+                                <input matInput type="text" placeholder="i.e AB+" formControlName="bloodgroup" required>
+                                <mat-error>invalid Blood group</mat-error>
+                            </mat-form-field>
                         </div>
+                        <div class="row" style="margin-bottom: 5px; margin-top: -17px;">
+                            <mat-radio-group aria-label="Select an option" formControlName="gender">
+                                <mat-label><b>Gender:</b></mat-label>
+                                <mat-radio-button value="male">Male</mat-radio-button>
+                                <mat-radio-button value="female">Female</mat-radio-button>
+                                <!-- <mat-radio-button value="others">Others</mat-radio-button>
+                                <mat-radio-button value="others">Not Interested</mat-radio-button> -->
+                            </mat-radio-group>
+                           
+                        </div>
+                        <div class="row">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Contact:</mat-label>
+                                <input matInput placeholder="Phone number" formControlName="empcontact" required>
+                                <mat-error>Please enter valid mumber</mat-error>
+                            </mat-form-field>
+                            <mat-form-field class="full-width" appearance="outline">
+                                <mat-label>City:</mat-label>
+                                <input matInput placeholder="Your city name " formControlName="city">
+                                <mat-error *ngIf="empForm.controls['city'].hasError('required')">
+                                    City is required..
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="row">
+                           <mat-form-field class="full" appearance="outline">
+                            <mat-label>Address:</mat-label>
+                                    <textarea matInput placeholder="Enter Your Full Address" formControlName="address"></textarea>
+                                    <mat-error *ngIf="empForm.controls['address'].hasError('required')">
+                                        Address is required
+                                         
+                                    </mat-error>
+                                </mat-form-field>
+                        </div>
+                        <div class="row">
+                            <mat-form-field appearance="outline">
+                                <mat-label>joining date:</mat-label>
+                                <input matInput [matDatepicker]="date" placeholder="Enter your Date" formControlName="joiningDate" required> 
+                                <mat-hint>MM/DD/YYYY</mat-hint>
+                                <mat-datepicker-toggle matIconSuffix [for]="date"></mat-datepicker-toggle>
+                                <mat-datepicker #date></mat-datepicker>
+                                <mat-error>enter joining Date</mat-error>
+                            </mat-form-field>
+                            <mat-form-field appearance="outline">
+                                <mat-label>Organization:</mat-label>
+                                <input matInput type="text" placeholder="i.e name" formControlName="organization" required>
+                                <mat-error>enter text</mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="row">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Role:</mat-label>
+                                <input matInput type="text" placeholder="i.e name" formControlName="role" required>
+                                <mat-error>please select your role</mat-error>
+                            </mat-form-field>
+                            <mat-form-field appearance="outline">
+                                <mat-label>designation:</mat-label>
+                                <input matInput placeholder="i.e 15" type="number" formControlName="designation">
+                                <mat-error>please select your designation</mat-error>
+                                <!-- <mat-hint>In dollar</mat-hint> -->
+                            </mat-form-field>
+                        </div>
+                        <div class="row">
+                            <mat-form-field appearance="outline">
+                                <mat-label>AssignManager:</mat-label>
+                                <input matInput type="text" placeholder="i.e name" formControlName="assignedManager" required>
+                                <mat-error>This field is Required</mat-error>
+                            </mat-form-field>
+                            <mat-form-field appearance="outline">
+                                <mat-label>Status:</mat-label>
+                                <input matInput placeholder="i.e 15" type="number" formControlName="status">
+                                <mat-error>This field is Required</mat-error>
+                                <!-- <mat-hint>In dollar</mat-hint> -->
+                            </mat-form-field>
+                        </div>
+                    </mat-dialog-content>
+                    
+                    <div mat-dialog-actions class="action-btns">
+                        <button style="margin: 10px;" mat-raised-button color="warn" [disabled]="!empForm.valid" type="submit">Save</button>
+                        <button mat-raised-button type="reset" color="primary" [mat-dialog-close]="false">Cancel</button>
                     </div>
-                </div>
-                <div class="card-body" style="background-color: rgb(242, 248, 248);">
-                    <form [formGroup]="empForm" (ngSubmit)=" submitForm()">
-                        <div class="row">
-                            <div class="col-6">
-                                <label for="">Name</label>
-                                <input type="text" class="form-control" name="empname" formControlName="empname"  [ngClass]="{ 'is-invalid': f['empname'].touched && f['empname'].errors, 'is-valid': f['empname'].valid }"
-                                required>
-                                 <small class="text-danger" *ngIf="f['empname'].touched && f['empname'].errors">Employee Name is
-                                    required</small>
-                            </div>
-                            <div class="col-6">
-                                <label for="">Email</label>
-                                <input type="text" class="form-control" name="empEmail" formControlName="empEmail" [ngClass]="{ 'is-invalid': f['empEmail'].touched && f['empEmail'].errors, 'is-valid': f['empEmail'].valid }"
-                                required>
-                                <small class="text-danger" *ngIf="f['empEmail'].touched && f['empEmail'].pristine">Email is
-                                    required</small>
-                                    <small class="text-danger" *ngIf="f['empEmail'].dirty &&  f['empEmail'].touched && f['empEmail'].errors">Email is invalid</small>
-                            </div>
-                            <div class="col-6">
-                                <label for="">Contact</label>
-                                <input type="text" class="form-control" name="empcontact" formControlName="empcontact"  [ngClass]="{ 'is-invalid': f['empcontact'].touched && f['empcontact'].errors, 'is-valid': f['empcontact'].valid }"
-                                required>
-                                <small class="text-danger" *ngIf="f['empcontact'].touched && f['empcontact'].errors ">Contact is
-                                    required</small>
-                            </div>
-                            <div class="col-6">
-                                <label for="">Alte Contact</label>
-                                <input type="text" class="form-control" name="altContact" formControlName="altContact"  [ngClass]="{ 'is-invalid': f['altContact'].touched && f['altContact'].errors, 'is-valid': f['altContact'].valid }"
-                                required>
-                                <small class="text-danger" *ngIf="f['altContact'].touched && f['altContact'].errors ">Contact is
-                                    required</small>
-                            </div>
-                            <div class="col-6">
-                                <label for="">Pincode</label>
-                                <input type="text" class="form-control" name="pincode" formControlName="pincode"  [ngClass]="{ 'is-invalid': f['pincode'].touched && f['pincode'].errors, 'is-valid': f['pincode'].valid }"
-                                required>
-                                <small class="text-danger" *ngIf="f['pincode'].touched && f['pincode'].errors">Pin Code is required</small>
-                            </div>
-                            <div class="col-6">
-                                <label for="">Address Line1</label>
-                                <textarea name="addressLine1" class="form-control" cols="2"
-                                    formControlName="addressLine1"  [ngClass]="{ 'is-invalid': f['addressLine1'].touched && f['addressLine1'].errors, 'is-valid': f['addressLine1'].valid }"
-                                    required></textarea>
-                                    <small class="text-danger" *ngIf="f['addressLine1'].touched && f['addressLine1'].errors">Address is required</small>
-                            </div>
-                            <div class="col-6">
-                                <label for="">Address Line2</label>
-                                <textarea name="addressLine2" class="form-control" cols="2"
-                                    formControlName="addressLine2" required></textarea>
-                                    <!-- <small class="text-danger" *ngIf="f['addressLine2'].touched && f['addressLine2'].errors && !f['addressLine2'].dirty">Employee Name is required</small> -->
-                            </div>
-                            <div class="col-6">
-                                <label for="">City</label>
-                                <input type="text" class="form-control" name="city" formControlName="city"  [ngClass]="{ 'is-invalid': f['city'].touched && f['city'].errors, 'is-valid': f['city'].valid }"
-                                required>
-                                <small class="text-danger" *ngIf="f['city'].touched && f['city'].errors">City is required</small>
-                            </div>
-                            <div class="col-6">
-                                <label for="">Bank Name</label>
-                                <input type="text" class="form-control" name="bankname" formControlName="bankname"  [ngClass]="{ 'is-invalid': f['bankname'].touched && f['bankname'].errors, 'is-valid': f['bankname'].valid }"
-                                required>
-                                <small class="text-danger" *ngIf="f['bankname'].touched && f['bankname'].errors">Bank Name is required</small>
-                            </div>
-
-                            <div class="col-6">
-                                <label for="">IFSC</label>
-                                <input type="text" class="form-control" name="ifsc" formControlName="ifsc"  [ngClass]="{ 'is-invalid': f['ifsc'].touched && f['ifsc'].errors, 'is-valid': f['ifsc'].valid }"
-                                required>
-                                <small class="text-danger" *ngIf="f['ifsc'].touched && f['ifsc'].errors">IFSC is required</small>
-                            </div>
-                            <div class="col-6">
-                                <label for="">Account No</label>
-                                <input type="text" class="form-control" name="accountNo" formControlName="accountNo"  [ngClass]="{ 'is-invalid': f['accountNo'].touched && f['accountNo'].errors, 'is-valid': f['accountNo'].valid }"
-                                required>
-                                <small class="text-danger" *ngIf="f['accountNo'].touched && f['accountNo'].errors">Account No is required</small>
-                            </div>
-                            <div class="col-6">
-                                <label for="">Bank Branch</label>
-                                <input type="text" class="form-control" name="bankBranch" formControlName="bankBranch"  [ngClass]="{ 'is-invalid': f['bankBranch'].touched && f['bankBranch'].errors, 'is-valid': f['bankBranch'].valid }"
-                                required>
-                                <small class="text-danger" *ngIf="f['bankBranch'].touched && f['bankBranch'].errors">Bank Branch is required</small>
-                            </div>
-                            <div class="col-6">
-                                <label for="">State</label>
-                                <input type="text" class="form-control" name="state" formControlName="state"  [ngClass]="{ 'is-invalid': f['state'].touched && f['state'].errors, 'is-valid': f['state'].valid }"
-                                required>
-                                <small class="text-danger" *ngIf="f['state'].touched && f['state'].errors">State is required</small>
-                            </div>
-                            <div class="col-6">
-                                <label for="">Salary</label>
-                                <input type="text" class="form-control" name="salary" formControlName="salary"  [ngClass]="{ 'is-invalid': f['salary'].touched && f['salary'].errors, 'is-valid': f['salary'].valid }"
-                                required>
-                                <small class="text-danger" *ngIf="f['salary'].touched && f['salary'].errors">Salary is required</small>
-                            </div>
-                            <div class="image-upload pt-3">
-                                <!-- <img [src]="imageSrc"  /> -->
-                                <input name="file" type="file" accept="image/*" (change)="handleInputChange($event)"  [ngClass]="{ 'is-invalid': f['file'].touched && f['file'].errors, 'is-valid': f['file'].valid }"
-                                required />
-                                <small class="text-danger" *ngIf="f['file'].touched && f['file'].errors"> Please Upload Your Profile Pic </small>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-6 text-center mt-3 mb-2">
-                                <button class="btn btn-secondary btn-sm" type="reset"
-                                    (click)="onReset() ">Reset</button>
-                            </div>
-                            <div class="col-6 text-center  mt-3 mb-2">
-                                <button class="button not-allowed btn-sm" style="border-radius: 8px;" *ngIf="!empForm.value.id" [disabled]="(this.disable || !this.empForm.valid )" type="submit"
-                                    (click)="onSave()">Save Employee</button>
-                                <button class="btn btn-warning btn-sm" *ngIf="empForm.value.id" type="submit"
-                                    (click)="onUpdate(empForm.value.id)">Update Employee</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-
+                </form>
             </div>
+
+        </mat-card>
 
 
 </ng-template>

@@ -1,136 +1,135 @@
-import { Component } from '@angular/core';
+import { AfterContentInit, AfterViewInit, Component, ElementRef, OnChanges, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 import { EmployeeService } from 'src/app/service/employee.service';
-import { Leave1Component } from '../leave1/leave1.component';
+const defaultDialogConfig = new MatDialogConfig();
 
 @Component({
   selector: 'app-leave',
   templateUrl: './leave.component.html',
   styleUrls: ['./leave.component.css']
 })
-export class LeaveComponent {
+export class LeaveComponent implements OnInit, AfterViewInit {
+  submitted = false;
   leaveForm: FormGroup
   employeeArray: any[] = [];
-  LeaveArray:any[] = [];
-  disable: boolean = false;
+   
+  // dataSource1: any;
+  displayedColumns = ['id', 'startDate', 'endDate', 'Reason', 'Action'];
+  dataSource: any = new MatTableDataSource;
+  clickedRows = new Set<Element>();
+  config = {
+    disableClose: true,
+    panelClass: 'custom-overlay-pane-class',
+    hasBackdrop: true,
+    backdropClass: '',
+    width: 'auto',
+    height: 'auto',
+    minWidth: '',
+    minHeight: '',
+    maxWidth: defaultDialogConfig.maxWidth,
+    maxHeight: '',
+    position: {
+      top: '',
+      bottom: '',
+      left: '',
+      right: ''
+    },
 
-  // selectedDate: any[{}]
 
-  selectDropdown: any[] = [{
-    id : "1",
-    Leavename: "Hospital"
-  },
-  {
-    id : "2",
-    Leavename: "Attending Fuction"
-  },
-  {
-    id : "3",
-    Leavename: "Marriage Leave"
   }
-]
-get f() {
-  return this['leaveForm'].controls;
-};
-  route_id: any;
 
-  constructor(private empSrv: EmployeeService , private dialog: MatDialog) {
-  }
-  
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild('viewLeaveForm') viewLeaveForm: TemplateRef<any>;
 
+  constructor(private dialog: MatDialog, private service: EmployeeService) { }
 
   ngOnInit(): void {
     this.leaveForm = new FormGroup({
-      id: new FormControl(''),
-      startDate: new FormControl('',  [Validators.required]),
-      endDate: new FormControl('',  [Validators.required]),
-      leaveReason: new FormControl('', [Validators.required]),
-      leavetype: new FormControl('',[Validators.required]),
-
-      
+      startDate: new FormControl('', [Validators.required]),
+      endDate: new FormControl('', [Validators.required]),
+      Reason: new FormControl('', [Validators.required]),
     })
-    this.getAllLeave()
     this.loadAllEmp()
-    // this.getAllSalary()
   }
 
-
-
-  loadAllEmp(){
-    this.empSrv.getAllEmployee().subscribe((res:any)=>{
-      this.employeeArray = res
-      
-    })
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
   }
 
-  getAllLeave(){
-    this.empSrv.getAllLeave().subscribe((res:any)=>{
-      this.LeaveArray = res
-    })
+  get f() {
+    return this['leaveForm'].controls
   }
 
-  
-  onDelete(id : any){
-    this.empSrv.deleteLeave(id).subscribe((res:any)=>{
-      if(res){
-        this.getAllLeave()
+  loadAllEmp() {
+    this.service.GetCustomer().subscribe((res: any) => {
+      this.dataSource = res
+      if (res) {
+        // this.dialog.closeAll()
+      } else {
+        // this.dialog.open()
       }
-     
+      this.dataSource = new MatTableDataSource(res);
+      this.dataSource.paginator = this.paginator;
     })
   }
 
-  onEdit(id: any) {
-    this.route_id = id
-    this.empSrv.getLeaveId(id).subscribe((res:any)=>{
-      console.log(res)
-     
-      res.forEach((element:any)=>{
-        if(element.id == this.route_id)
-        this.leaveForm.patchValue({
-          empname: element.empname,
-          startDate: element.startDate,
-          endDate: element.endDate,
-          leaveReason : element.leaveReason,
-          leavetype : element.leavetype
-        })
-      })
-    })
+  onSubmit() {
+    this.submitted = true;
+    if (this.leaveForm.invalid) {
+      return;
+    } else {
+      this.service.createLeave(this.leaveForm.value).subscribe((res: any) => {
+        if (this.leaveForm.valid) {
+          // alert("success fully data submitted")
+          this.dialog.closeAll()
+          this.loadAllEmp()
+          this.leaveForm.reset()
 
-  }
-
-  onSave() {
-      this.empSrv.createLeave1(this.leaveForm.value).subscribe((res: any) => {
-        !this.leaveForm.valid
-        if (res) {
-          this.loadAllEmp();
-          alert(res.message);
-          this.leaveForm.reset();
-        } else {
-          alert(res.message)
         }
+
       })
-      this.getAllLeave() 
+    }
+  }
+
+  openpopup(templateRef) {
+    let dialogRef = this.dialog.open(templateRef, this.config);
+    dialogRef.disableClose = true;
   
-    }
+    dialogRef.backdropClick().subscribe(_ => {
+      dialogRef.close();
 
-    onUpdate(){
-      this.empSrv.updateLeaveId(this.leaveForm.value, this.route_id).subscribe((res:any)=>{
-        if (res) {
-          console.log(res)
-          this.getAllLeave();
-          this.leaveForm.reset();
-          this.route_id = null
-        } else {
-      
-        }
-      })
-    }
-    onSubmit(){
-      if(this.leaveForm.valid){
-        this.disable = true
+      this.leaveForm.reset();
+
+    })
+  }
+
+  onDelete(id: any) {
+    debugger
+    this.service.deleteLeave(id).subscribe((res: any) => {
+      if (res) {
+        this.loadAllEmp()
       }
 
-    }
+    })
+  }
 
+  applyFilter(data: Event) {
+    const value = (data.target as HTMLInputElement).value;
+    this.dataSource.filter = value;
+
+  }
+  // onReset() {
+
+  //   this.leaveForm.reset();
+  // }
+  closepopup(){
+
+    this.leaveForm.reset();
+  }
 }
+
+
+

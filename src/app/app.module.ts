@@ -8,7 +8,6 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EmployeeComponent } from './pages/employee/employee.component';
 import { AttendanceComponent } from './pages/attendance/attendance.component';
-import { LeaveComponent } from './pages/leave/leave.component';
 import { SalaryComponent } from './pages/salary/salary.component';
 import {HTTP_INTERCEPTORS, HttpClientModule} from'@angular/common/http'
 import { FullCalendarModule } from '@fullcalendar/angular';
@@ -16,11 +15,11 @@ import { HomeComponent } from './home/home.component';
 import { SignupComponent } from './pages/signup/signup.component';
 import { DatePipe } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { Leave1Component } from './pages/leave1/leave1.component';
 import { MaterialModule } from './material.modules';
 import { SidebarComponent } from './layout/sidebar/sidebar.component';
 import { FooterComponent } from './layout/footer/footer.component';
 import { TokenInterceptor } from './Interceptor/token.interceptor';
+import { LeaveComponent } from './pages/leave/leave.component';
 
 @NgModule({
     declarations: [
@@ -33,7 +32,6 @@ import { TokenInterceptor } from './Interceptor/token.interceptor';
         SalaryComponent,
         HomeComponent,
         SignupComponent,
-        Leave1Component,
         SidebarComponent,
         FooterComponent,
         HeaderComponent

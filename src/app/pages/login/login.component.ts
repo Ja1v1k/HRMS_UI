@@ -18,10 +18,10 @@ const defaultDialogConfig = new MatDialogConfig();
 })
 export class LoginComponent {
   showLogin = false;
-  authError:string = '';
-  menuType:string ='seller'
+  authError: string = '';
+  menuType: string = 'seller'
   isLoginError = new EventEmitter<boolean>(false)
-  email:string;
+  email: string;
   config = {
     disableClose: true,
     panelClass: 'custom-overlay-pane-class',
@@ -38,66 +38,67 @@ export class LoginComponent {
       bottom: '',
       left: '',
       right: ''
-    },}
-
-constructor(private router:Router,
-  private empSrv:EmployeeService , private auth:AuthService,private userStore:UserStoreService,private dialog: MatDialog,private resetPassword:ResetPasswordService){
-
-}
-ngOnInit(): void {
-  this.empSrv.reloadSeller()
-
-}
-
-RegisterForm(data:signup): void{
-  console.log(data)
-
-  this.empSrv.userSignUp(data);
-}
-
-login(data:any){  
-  // console.log(data)
-  this.empSrv.userLogin(data);
-  this.auth.login(data).subscribe((res:any) => {
-    this.auth.setToken(res.token)
-    this.router.navigate(['dashboard'])
-          this.auth.storeRefreshToken(res.refreshToken);
-          const tokenPayload = this.auth.decodedToken();
-          this.userStore.setFullNameForStore(tokenPayload.name);
-          this.userStore.setRoleForStore(tokenPayload.role);          
-          this.router.navigate(['dashboard'])
+    },
   }
-    
-    
-  )
-}
 
-openLogin( ){
-  this.showLogin=true
-}
+  constructor(private router: Router,
+    private empSrv: EmployeeService, private auth: AuthService, private userStore: UserStoreService, private dialog: MatDialog, private resetPassword: ResetPasswordService) {
+
+  }
+  ngOnInit(): void {
+    this.empSrv.reloadSeller()
+
+  }
+
+  RegisterForm(data: signup): void {
+    console.log(data)
+
+    this.empSrv.userSignUp(data);
+  }
+
+  login(data: any) {
+    // console.log(data)
+    this.empSrv.userLogin(data);
+    this.auth.login(data).subscribe((res: any) => {
+      this.auth.setToken(res.token)
+
+      this.auth.storeRefreshToken(res.refreshToken);
+      const tokenPayload = this.auth.decodedToken();
+      this.userStore.setFullNameForStore(tokenPayload.name);
+      this.userStore.setRoleForStore(tokenPayload.role);
+      this.router.navigate(['dashboard'])
+    }
+
+
+    )
+  }
+
+  openLogin() {
+    this.showLogin = true
+  }
 
 
 
-openRegister(){
-  this.showLogin=false
-  this.router.navigate(['signup'])
+  openRegister() {
+    this.showLogin = false
+    this.router.navigate(['signup'])
 
-}
+  }
 
-openpopup(templateRef) {
-  let dialogRef = this.dialog.open(templateRef, this.config);
-  dialogRef.disableClose = true;
+  openpopup(templateRef) {
+    let dialogRef = this.dialog.open(templateRef, this.config);
+    dialogRef.disableClose = true;
 
-  dialogRef.backdropClick().subscribe(_ => {
-    dialogRef.close();
+    dialogRef.backdropClick().subscribe(_ => {
+      dialogRef.close();
 
-  })
-}
+    })
+  }
 
-sendEmail(){
-  debugger
-  this.resetPassword.sendResetPasswordLink(this.email).subscribe(res=>console.log(res))
-}
+  sendEmail() {
+    debugger
+    this.resetPassword.sendResetPasswordLink(this.email).subscribe(res => console.log(res))
+  }
 
 }
 
